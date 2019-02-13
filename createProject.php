@@ -1,10 +1,6 @@
 <?php require_once 'php_action/db_connect.php';
  require_once 'includes/header.php'; 
  
- if($_POST){
-     echo 'Post hua kuch';
-     header('location: http://localhost:8085/inventory/dashboard.php');	
- }
  
  ?>
 

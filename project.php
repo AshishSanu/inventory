@@ -11,26 +11,26 @@
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<div class="page-heading"> <i class="glyphicon glyphicon-edit"></i> Manage P</div>
+				<div class="page-heading"> <i class="glyphicon glyphicon-edit"></i> Manage Project</div>
 			</div> <!-- /panel-heading -->
 			<div class="panel-body">
 
 				<div class="remove-messages"></div>
 
 				<div class="div-action pull pull-right" style="padding-bottom:20px;">
-					<button class="btn btn-default button1" data-toggle="modal" id="addProductModalBtn" data-target="#addProductModal"> <i class="glyphicon glyphicon-plus-sign"></i> Add Product </button>
+					<button class="btn btn-default button1" data-toggle="modal" id="addProductModalBtn" data-target="#addProductModal"> <i class="glyphicon glyphicon-plus-sign"></i> Add Project </button>
 				</div> <!-- /div-action -->				
 				
 				<table class="table" id="manageProductTable">
 					<thead>
 						<tr>
 							<th style="width:10%;">Photo</th>							
-							<th>Product Name</th>
-							<th>Rate</th>							
-							<th>Quantity</th>
-							<th>Brand</th>
-							<th>Category</th>
-							<th>Status</th>
+							<th>Project ID</th>
+							<th>Project Name</th>							
+							<th>Project Team</th>
+							<th>Project Duration</th>
+							<th>Project Start date</th>
+							<th>Project End Date</th>
 							<th style="width:15%;">Options</th>
 						</tr>
 					</thead>
@@ -48,7 +48,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
 
-    	<form class="form-horizontal" id="submitProductForm" action="php_action/createProduct.php" method="POST" enctype="multipart/form-data">
+    	<form class="form-horizontal" id="submitProductForm" action="createProj.php" method="POST" enctype="multipart/form-data">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	        <h4 class="modal-title"><i class="fa fa-plus"></i> Add Project</h4>
@@ -62,20 +62,20 @@
 	        	<label for="productImage" class="col-sm-3 control-label">Product Image/Logo: </label>
 	        	<label class="col-sm-1 control-label">: </label>
 				    <div class="col-sm-8">
-					    <!-- the avatar markup -->
+					   <!--  the avatar markup -->
 							<div id="kv-avatar-errors-1" class="center-block" style="display:none;"></div>							
 					    <div class="kv-avatar center-block">					        
 					        <input type="file" class="form-control" id="productImage" placeholder="Product Name" name="productImage" class="file-loading" style="width:auto;"/>
 					    </div>
 				      
 				    </div>
-	        </div> <!-- /form-group-->	     	           	       
+	        </div>  <!--form-group	 -->    	           	       
 
 	        <div class="form-group">
 	        	<label for="productName" class="col-sm-3 control-label">Project ID: </label>
 	        	<label class="col-sm-1 control-label">: </label>
 				    <div class="col-sm-8">
-				      <input type="text" class="form-control" id="productName" placeholder="Product Name" name="productName" autocomplete="off">
+				      <input type="text" class="form-control" id="productName" placeholder="Project ID" name="productName" autocomplete="off">
 				    </div>
 	        </div> <!-- /form-group-->	    
 
@@ -83,7 +83,7 @@
 	        	<label for="quantity" class="col-sm-3 control-label">Project Name: </label>
 	        	<label class="col-sm-1 control-label">: </label>
 				    <div class="col-sm-8">
-				      <input type="text" class="form-control" id="quantity" placeholder="Quantity" name="quantity" autocomplete="off">
+				      <input type="text" class="form-control" id="quantity" placeholder="Project Name" name="quantity" autocomplete="off">
 				    </div>
 	        </div> <!-- /form-group-->	        	 
 
@@ -91,7 +91,7 @@
 	        	<label for="rate" class="col-sm-3 control-label">Project Duration: </label>
 	        	<label class="col-sm-1 control-label">: </label>
 				    <div class="col-sm-8">
-				      <input type="text" class="form-control" id="rate" placeholder="Rate" name="rate" autocomplete="off">
+				      <input type="text" class="form-control" id="rate" placeholder="Project Duration" name="rate" autocomplete="off">
 				    </div>
 	        </div> <!-- /form-group-->	     	        
 
@@ -99,18 +99,7 @@
 	        	<label for="brandName" class="col-sm-3 control-label">Project Start Date </label>
 	        	<label class="col-sm-1 control-label">: </label>
 				    <div class="col-sm-8">
-				      <select class="form-control" id="brandName" name="brandName">
-				      	<option value="">~~SELECT~~</option>
-				      	<?php 
-				      	$sql = "SELECT brand_id, brand_name, brand_active, brand_status FROM brands WHERE brand_status = 1 AND brand_active = 1";
-								$result = $connect->query($sql);
-
-								while($row = $result->fetch_array()) {
-									echo "<option value='".$row[0]."'>".$row[1]."</option>";
-								} // while
-								
-				      	?>
-				      </select>
+                                        <input type="date"  class="form-control" id="datepicker">
 				    </div>
 	        </div> <!-- /form-group-->	
 
@@ -118,18 +107,7 @@
 	        	<label for="categoryName" class="col-sm-3 control-label">Project End Date </label>
 	        	<label class="col-sm-1 control-label">: </label>
 				    <div class="col-sm-8">
-				      <select type="text" class="form-control" id="categoryName" placeholder="Product Name" name="categoryName" >
-				      	<option value="">~~SELECT~~</option>
-				      	<?php 
-				      	$sql = "SELECT categories_id, categories_name, categories_active, categories_status FROM categories WHERE categories_status = 1 AND categories_active = 1";
-								$result = $connect->query($sql);
-
-								while($row = $result->fetch_array()) {
-									echo "<option value='".$row[0]."'>".$row[1]."</option>";
-								} // while
-								
-				      	?>
-				      </select>
+				      <input type="date" class="form-control" id="datepicker">
 				    </div>
 	        </div> <!-- /form-group-->					        	         	       
 
@@ -139,8 +117,8 @@
 				    <div class="col-sm-8">
 				      <select class="form-control" id="productStatus" name="productStatus">
 				      	<option value="">~~SELECT~~</option>
-				      	<option value="1">Available</option>
-				      	<option value="2">Not Available</option>
+				      	<option value="1">Ongoing</option>
+				      	<option value="2">Completed</option>
 				      </select>
 				    </div>
 	        </div> <!-- /form-group-->	         	        
@@ -349,6 +327,6 @@
 <!-- /categories brand -->
 
 
-<script src="custom/js/product.js"></script>
+<script src="custom/js/project.js"></script>
 
 <?php require_once 'includes/footer.php'; ?>
