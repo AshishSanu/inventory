@@ -40,7 +40,7 @@ $(document).ready(function() {
 		$("#submitProductForm").unbind('submit').bind('submit', function() {
 
 			// form validation
-			var productImage = $("#productImage").val();
+		
 			var productName = $("#productName").val();
 			var quantity = $("#quantity").val();
 			var rate = $("#rate").val();
@@ -48,17 +48,9 @@ $(document).ready(function() {
 			var categoryName = $("#categoryName").val();
 			var productStatus = $("#productStatus").val();
 	
-			if(productImage == "") {
-				$("#productImage").closest('.center-block').after('<p class="text-danger">Product Image field is required</p>');
-				$('#productImage').closest('.form-group').addClass('has-error');
-			}	else {
-				// remov error text field
-				$("#productImage").find('.text-danger').remove();
-				// success out for form 
-				$("#productImage").closest('.form-group').addClass('has-success');	  	
-			}	// /else
+		// /else
 
-			if(productName == "") {
+			if(productName = "") {
 				$("#productName").after('<p class="text-danger">Product Name field is required</p>');
 				$('#productName').closest('.form-group').addClass('has-error');
 			}	else {
@@ -118,7 +110,7 @@ $(document).ready(function() {
 				$("#productStatus").closest('.form-group').addClass('has-success');	  	
 			}	// /else
 
-			if(productImage && productName && quantity && rate && brandName && categoryName && productStatus) {
+			if(true) {
 				// submit loading button
 				$("#createProductBtn").button('loading');
 
@@ -134,7 +126,6 @@ $(document).ready(function() {
 					contentType: false,
 					processData: false,
 					success:function(response) {
-
 						if(response.success == true) {
 							// submit loading button
 							$("#createProductBtn").button('reset');
@@ -165,8 +156,10 @@ $(document).ready(function() {
 							$(".form-group").removeClass('has-error').removeClass('has-success');
 
 						} // /if response.success
+                                                
 						
 					} // /success function
+                                   
 				}); // /ajax function
 			}	 // /if validation is ok 					
 
@@ -194,21 +187,22 @@ function editProduct(productId = null) {
 		$('.div-result').addClass('div-hide');
 
 		$.ajax({
-			url: 'php_action/fetchSelectedProduct.php',
+			url: 'php_action/fetchSelectedProject.php',
 			type: 'post',
-			data: {productId: productId},
+			data: {projectId: productId},
 			dataType: 'json',
-			success:function(response) {		
+			success:function(response) {
+                            //console.log(response);
 			// alert(response.product_image);
 				// modal spinner
 				$('.div-loading').addClass('div-hide');
 				// modal div
 				$('.div-result').removeClass('div-hide');				
 
-				$("#getProductImage").attr('src', 'stock/'+response.product_image);
-
-				$("#editProductImage").fileinput({		      
-				});  
+//				$("#getProductImage").attr('src', 'stock/'+response.product_image);
+//
+//				$("#editProductImage").fileinput({		      
+//				});  
 
 				// $("#editProductImage").fileinput({
 		  //     overwriteInitial: true,
@@ -228,19 +222,19 @@ function editProduct(productId = null) {
 				// });  
 
 				// product id 
-				$(".editProductFooter").append('<input type="hidden" name="productId" id="productId" value="'+response.product_id+'" />');				
-				$(".editProductPhotoFooter").append('<input type="hidden" name="productId" id="productId" value="'+response.product_id+'" />');				
+				$(".editProductFooter").append('<input type="hidden" name="productId" id="productId" value="'+response.project_id+'" />');				
+				$(".editProductPhotoFooter").append('<input type="hidden" name="productId" id="productId" value="'+response.project_id+'" />');				
 				
 				// product name
-				$("#editProductName").val(response.product_name);
+				$("#editProjectName").val(response.project_name);
 				// quantity
-				$("#editQuantity").val(response.quantity);
+				$("#editQuantity").val(response.project_team);
 				// rate
-				$("#editRate").val(response.rate);
+				$("#editRate").val(response.project_duration);
 				// brand name
-				$("#editBrandName").val(response.brand_id);
+				$("#editStartDate").val(response.project_start_date);
 				// category name
-				$("#editCategoryName").val(response.categories_id);
+				$("#editEndDate").val(response.project_end_date);
 				// status
 				$("#editProductStatus").val(response.active);
 
@@ -248,12 +242,12 @@ function editProduct(productId = null) {
 				$("#editProductForm").unbind('submit').bind('submit', function() {
 
 					// form validation
-					var productImage = $("#editProductImage").val();
-					var productName = $("#editProductName").val();
+					//var productImage = $("#editProductImage").val();
+					var productName = $("#editProjectName").val();
 					var quantity = $("#editQuantity").val();
 					var rate = $("#editRate").val();
-					var brandName = $("#editBrandName").val();
-					var categoryName = $("#editCategoryName").val();
+					var brandName = $("#editStartDate").val();
+					var categoryName = $("#editEndDate").val();
 					var productStatus = $("#editProductStatus").val();
 								
 
@@ -333,7 +327,7 @@ function editProduct(productId = null) {
 							contentType: false,
 							processData: false,
 							success:function(response) {
-								console.log(response);
+								console.log("result "+ response);
 								if(response.success == true) {
 									// submit loading button
 									$("#editProductBtn").button('reset');																		
@@ -363,90 +357,16 @@ function editProduct(productId = null) {
 
 								} // /if response.success
 								
-							} // /success function
+							}, // /success function
+                                                    
 						}); // /ajax function
 					}	 // /if validation is ok 					
 
 					return false;
-				}); // update the product data function
+				}); 
+                                // update the product data function
 
-				// update the product image				
-				$("#updateProductImageForm").unbind('submit').bind('submit', function() {					
-					// form validation
-					var productImage = $("#editProductImage").val();					
-					
-					if(productImage == "") {
-						$("#editProductImage").closest('.center-block').after('<p class="text-danger">Product Image field is required</p>');
-						$('#editProductImage').closest('.form-group').addClass('has-error');
-					}	else {
-						// remov error text field
-						$("#editProductImage").find('.text-danger').remove();
-						// success out for form 
-						$("#editProductImage").closest('.form-group').addClass('has-success');	  	
-					}	// /else
-
-					if(productImage) {
-						// submit loading button
-						$("#editProductImageBtn").button('loading');
-
-						var form = $(this);
-						var formData = new FormData(this);
-
-						$.ajax({
-							url : form.attr('action'),
-							type: form.attr('method'),
-							data: formData,
-							dataType: 'json',
-							cache: false,
-							contentType: false,
-							processData: false,
-							success:function(response) {
-								
-								if(response.success == true) {
-									// submit loading button
-									$("#editProductImageBtn").button('reset');																		
-
-									$("html, body, div.modal, div.modal-content, div.modal-body").animate({scrollTop: '0'}, 100);
-																			
-									// shows a successful message after operation
-									$('#edit-productPhoto-messages').html('<div class="alert alert-success">'+
-				            '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
-				            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
-				          '</div>');
-
-									// remove the mesages
-				          $(".alert-success").delay(500).show(10, function() {
-										$(this).delay(3000).hide(10, function() {
-											$(this).remove();
-										});
-									}); // /.alert
-
-				          // reload the manage student table
-									manageProductTable.ajax.reload(null, true);
-
-									$(".fileinput-remove-button").click();
-
-									$.ajax({
-										url: 'php_action/fetchProductImageUrl.php?i='+productId,
-										type: 'post',
-										success:function(response) {
-										$("#getProductImage").attr('src', response);		
-										}
-									});																		
-
-									// remove text-error 
-									$(".text-danger").remove();
-									// remove from-group error
-									$(".form-group").removeClass('has-error').removeClass('has-success');
-
-								} // /if response.success
-								
-							} // /success function
-						}); // /ajax function
-					}	 // /if validation is ok 					
-
-					return false;
-				}); // /update the product image
+				
 
 			} // /success function
 		}); // /ajax to fetch product image
@@ -465,7 +385,7 @@ function removeProduct(productId = null) {
 			// loading remove button
 			$("#removeProductBtn").button('loading');
 			$.ajax({
-				url: 'php_action/removeProduct.php',
+				url: 'php_action/removeProject.php',
 				type: 'post',
 				data: {productId: productId},
 				dataType: 'json',

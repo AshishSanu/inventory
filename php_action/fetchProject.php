@@ -47,8 +47,8 @@ if($result->num_rows > 0) {
 	// 	$brand = $row['brand_name'];
 	// }
 
-	$brand = $row[9];
-	$category = $row[10];
+	//$brand = $row[9];
+	//$category = $row[10];
 
 //	$imageUrl = substr($row[2], 3);
 //	$productImage = "<img class='img-round' src='".$imageUrl."' style='height:30px; width:50px;'  />";
@@ -59,17 +59,16 @@ if($result->num_rows > 0) {
  		// product name
  		$row[1], 
  		// rate
- 		$row[6],
+ 		$row[2],
  		// quantity 
- 		$row[5], 		 	
+ 		$row[3], 		 	
  		// brand
- 		$brand,
- 		// category 		
- 		$category,
- 		// active
- 		$active,
- 		// button
- 		$button 		
+ 		$row[4],
+ 		// product name
+ 		$row[5], 
+ 		// rate
+ 		$row[6],
+                $button
  		); 	
  } // /while 
 

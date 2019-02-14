@@ -1,6 +1,6 @@
 <?php
 require_once 'php_action/db_connect.php';
-require_once 'core.php';
+require_once 'php_action/core.php';
 
 $valid['success'] = array('success' => false, 'messages' => array());
 //echo 'Post hua kuch';
@@ -11,12 +11,14 @@ $valid['success'] = array('success' => false, 'messages' => array());
  * and open the template in the editor.
  */
 //
-$projectID=$_POST['projectID'];
+if($_POST){
+$projectID=$_POST['productId'];
 $projectName=$_POST['projectName'];
 $projectTeam=$_POST['projectTeam'];
 $projectDuration=$_POST['projectDuration'];
 $projectSD=$_POST['projectSD'];
 $projectED=$_POST['projectED'];
+$productStatus=$_POST['productStatus'];
 //
 //echo 'Data You Entered are...<br>';
 //echo 'Project ID :'. $projectID.' <br>';
@@ -25,8 +27,8 @@ $projectED=$_POST['projectED'];
 //echo 'Project Start Date :'. $projectSD .'<br>';
 //echo 'Project End Date :'. $projectED .'<br>';
 
-$sql = "INSERT INTO project (project_id, project_name, project_team, project_duration, project_start_date, project_end_date) 
-				VALUES ('$projectID', '$projectName', '$projectTeam', '$projectDuration', '$projectSD', '$projectED')";
+$sql = "INSERT INTO project (project_id, project_name, project_team, project_duration, project_start_date, project_end_date,status) 
+				VALUES ('$projectID', '$projectName', '$projectTeam', '$projectDuration', '$projectSD', '$projectED',1)";
 
 if($connect->query($sql) === TRUE) 
     {
@@ -35,6 +37,8 @@ if($connect->query($sql) === TRUE)
     } else {
 	$valid['success'] = false;
         $valid['messages'] = "Error while adding the members";
+        
     }
 $connect->close();
 echo json_encode($valid);
+}

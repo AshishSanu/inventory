@@ -5,11 +5,12 @@
         <group>
             <file>file:/C:/xampp/htdocs/inventory/project.php</file>
             <file>file:/C:/xampp/htdocs/inventory/php_action/createProduct.php</file>
-            <file>file:/C:/xampp/htdocs/inventory/product.php</file>
-            <file>file:/C:/xampp/htdocs/inventory/createProj.php</file>
-            <file>file:/C:/xampp/htdocs/inventory/createProject.php</file>
-            <file>file:/C:/xampp/htdocs/inventory/index.php</file>
+            <file>file:/C:/xampp/htdocs/inventory/php_action/fetchSelectedProject.php</file>
+            <file>file:/C:/xampp/htdocs/inventory/php_action/removeProduct.php</file>
+            <file>file:/C:/xampp/htdocs/inventory/custom/js/project.js</file>
             <file>file:/C:/xampp/htdocs/inventory/php_action/createProj.php</file>
+            <file>file:/C:/xampp/htdocs/inventory/php_action/removeProject.php</file>
+            <file>file:/C:/xampp/htdocs/inventory/php_action/editProject.php</file>
         </group>
     </open-files>
 </project-private>

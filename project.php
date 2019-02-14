@@ -24,13 +24,16 @@
 				<table class="table" id="manageProductTable">
 					<thead>
 						<tr>
+                                                    <!--
 							<th style="width:10%;">Photo</th>							
-							<th>Project ID</th>
+							-->
+                                                        <th>Project ID</th>
 							<th>Project Name</th>							
 							<th>Project Team</th>
 							<th>Project Duration</th>
 							<th>Project Start date</th>
 							<th>Project End Date</th>
+                                                        <th>Status</th>
 							<th style="width:15%;">Options</th>
 						</tr>
 					</thead>
@@ -48,7 +51,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
 
-    	<form class="form-horizontal" id="submitProductForm" action="createProj.php" method="POST" enctype="multipart/form-data">
+        <form class="form-horizontal" id="submitProductForm" action="createProj.php" method="POST" enctype="multipart/form-data">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	        <h4 class="modal-title"><i class="fa fa-plus"></i> Add Project</h4>
@@ -58,24 +61,13 @@
 
 	      	<div id="add-product-messages"></div>
 
-	      	<div class="form-group">
-	        	<label for="productImage" class="col-sm-3 control-label">Product Image/Logo: </label>
-	        	<label class="col-sm-1 control-label">: </label>
-				    <div class="col-sm-8">
-					   <!--  the avatar markup -->
-							<div id="kv-avatar-errors-1" class="center-block" style="display:none;"></div>							
-					    <div class="kv-avatar center-block">					        
-					        <input type="file" class="form-control" id="productImage" placeholder="Product Name" name="productImage" class="file-loading" style="width:auto;"/>
-					    </div>
-				      
-				    </div>
-	        </div>  <!--form-group	 -->    	           	       
+	      	  <!--form-group	 -->    	           	       
 
 	        <div class="form-group">
 	        	<label for="productName" class="col-sm-3 control-label">Project ID: </label>
 	        	<label class="col-sm-1 control-label">: </label>
 				    <div class="col-sm-8">
-				      <input type="text" class="form-control" id="productName" placeholder="Project ID" name="productName" autocomplete="off">
+				      <input type="text" class="form-control" id="productName" placeholder="Project ID" name="productId" autocomplete="off">
 				    </div>
 	        </div> <!-- /form-group-->	    
 
@@ -83,15 +75,24 @@
 	        	<label for="quantity" class="col-sm-3 control-label">Project Name: </label>
 	        	<label class="col-sm-1 control-label">: </label>
 				    <div class="col-sm-8">
-				      <input type="text" class="form-control" id="quantity" placeholder="Project Name" name="quantity" autocomplete="off">
+				      <input type="text" class="form-control" id="quantity" placeholder="Project Name" name="projectName" autocomplete="off">
 				    </div>
-	        </div> <!-- /form-group-->	        	 
+	        </div> <!-- /form-group-->
+                <!-- /form-group-->	    
+
+	        <div class="form-group">
+	        	<label for="quantity" class="col-sm-3 control-label">Project Team: </label>
+	        	<label class="col-sm-1 control-label">: </label>
+				    <div class="col-sm-8">
+				      <input type="text" class="form-control" id="quantity" placeholder="Project Team" name="projectTeam" autocomplete="off">
+				    </div>
+	        </div> <!-- /form-group-->
 
 	        <div class="form-group">
 	        	<label for="rate" class="col-sm-3 control-label">Project Duration: </label>
 	        	<label class="col-sm-1 control-label">: </label>
 				    <div class="col-sm-8">
-				      <input type="text" class="form-control" id="rate" placeholder="Project Duration" name="rate" autocomplete="off">
+				      <input type="text" class="form-control" id="rate" placeholder="Project Duration" name="projectDuration" autocomplete="off">
 				    </div>
 	        </div> <!-- /form-group-->	     	        
 
@@ -99,7 +100,7 @@
 	        	<label for="brandName" class="col-sm-3 control-label">Project Start Date </label>
 	        	<label class="col-sm-1 control-label">: </label>
 				    <div class="col-sm-8">
-                                        <input type="date"  class="form-control" id="datepicker">
+                                        <input type="date"  name="projectSD" class="form-control" id="datepicker">
 				    </div>
 	        </div> <!-- /form-group-->	
 
@@ -107,7 +108,7 @@
 	        	<label for="categoryName" class="col-sm-3 control-label">Project End Date </label>
 	        	<label class="col-sm-1 control-label">: </label>
 				    <div class="col-sm-8">
-				      <input type="date" class="form-control" id="datepicker">
+				      <input type="date" name="projectED" class="form-control" id="datepicker">
 				    </div>
 	        </div> <!-- /form-group-->					        	         	       
 
@@ -136,14 +137,14 @@
 <!-- /add categories -->
 
 
-<!-- edit categories brand -->
+<!-- edit Project Info -->
 <div class="modal fade" id="editProductModal" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
     	    	
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title"><i class="fa fa-edit"></i> Edit Product</h4>
+	        <h4 class="modal-title"><i class="fa fa-edit"></i> Edit Project</h4>
 	      </div>
 	      <div class="modal-body" style="max-height:450px; overflow:auto;">
 
@@ -164,59 +165,24 @@
 				  <div class="tab-content">
 
 				  	
-				    <div role="tabpanel" class="tab-pane active" id="photo">
-				    	<form action="php_action/editProductImage.php" method="POST" id="updateProductImageForm" class="form-horizontal" enctype="multipart/form-data">
-
-				    	<br />
-				    	<div id="edit-productPhoto-messages"></div>
-
-				    	<div class="form-group">
-			        	<label for="editProductImage" class="col-sm-3 control-label">Product Image: </label>
-			        	<label class="col-sm-1 control-label">: </label>
-						    <div class="col-sm-8">							    				   
-						      <img src="" id="getProductImage" class="thumbnail" style="width:250px; height:250px;" />
-						    </div>
-			        </div> <!-- /form-group-->	     	           	       
-				    	
-			      	<div class="form-group">
-			        	<label for="editProductImage" class="col-sm-3 control-label">Select Photo: </label>
-			        	<label class="col-sm-1 control-label">: </label>
-						    <div class="col-sm-8">
-							    <!-- the avatar markup -->
-									<div id="kv-avatar-errors-1" class="center-block" style="display:none;"></div>							
-							    <div class="kv-avatar center-block">					        
-							        <input type="file" class="form-control" id="editProductImage" placeholder="Product Name" name="editProductImage" class="file-loading" style="width:auto;"/>
-							    </div>
-						      
-						    </div>
-			        </div> <!-- /form-group-->	     	           	       
-
-			        <div class="modal-footer editProductPhotoFooter">
-				        <button type="button" class="btn btn-default" data-dismiss="modal"> <i class="glyphicon glyphicon-remove-sign"></i> Close</button>
-				        
-				        <!-- <button type="submit" class="btn btn-success" id="editProductImageBtn" data-loading-text="Loading..."> <i class="glyphicon glyphicon-ok-sign"></i> Save Changes</button> -->
-				      </div>
-				      <!-- /modal-footer -->
-				      </form>
-				      <!-- /form -->
-				    </div>
+				  
 				    <!-- product image -->
 				    <div role="tabpanel" class="tab-pane" id="productInfo">
-				    	<form class="form-horizontal" id="editProductForm" action="php_action/editProduct.php" method="POST">				    
+				    	<form class="form-horizontal" id="editProductForm" action="php_action/editProject.php" method="POST">				    
 				    	<br />
 
 				    	<div id="edit-product-messages"></div>
 
 				    	<div class="form-group">
-			        	<label for="editProductName" class="col-sm-3 control-label">Product Name: </label>
+			        	<label for="editProductName" class="col-sm-3 control-label">Project Name: </label>
 			        	<label class="col-sm-1 control-label">: </label>
 						    <div class="col-sm-8">
-						      <input type="text" class="form-control" id="editProductName" placeholder="Product Name" name="editProductName" autocomplete="off">
+						      <input type="text" class="form-control" id="editProjectName" placeholder="Product Name" name="editProductName" autocomplete="off">
 						    </div>
 			        </div> <!-- /form-group-->	    
 
 			        <div class="form-group">
-			        	<label for="editQuantity" class="col-sm-3 control-label">Quantity: </label>
+			        	<label for="editQuantity" class="col-sm-3 control-label">Project Team: </label>
 			        	<label class="col-sm-1 control-label">: </label>
 						    <div class="col-sm-8">
 						      <input type="text" class="form-control" id="editQuantity" placeholder="Quantity" name="editQuantity" autocomplete="off">
@@ -224,7 +190,7 @@
 			        </div> <!-- /form-group-->	        	 
 
 			        <div class="form-group">
-			        	<label for="editRate" class="col-sm-3 control-label">Rate: </label>
+			        	<label for="editRate" class="col-sm-3 control-label">Project Duration: </label>
 			        	<label class="col-sm-1 control-label">: </label>
 						    <div class="col-sm-8">
 						      <input type="text" class="form-control" id="editRate" placeholder="Rate" name="editRate" autocomplete="off">
@@ -232,40 +198,18 @@
 			        </div> <!-- /form-group-->	     	        
 
 			        <div class="form-group">
-			        	<label for="editBrandName" class="col-sm-3 control-label">Brand Name: </label>
+			        	<label for="editBrandName" class="col-sm-3 control-label">Project Start Date: </label>
 			        	<label class="col-sm-1 control-label">: </label>
 						    <div class="col-sm-8">
-						      <select class="form-control" id="editBrandName" name="editBrandName">
-						      	<option value="">~~SELECT~~</option>
-						      	<?php 
-						      	$sql = "SELECT brand_id, brand_name, brand_active, brand_status FROM brands WHERE brand_status = 1 AND brand_active = 1";
-										$result = $connect->query($sql);
-
-										while($row = $result->fetch_array()) {
-											echo "<option value='".$row[0]."'>".$row[1]."</option>";
-										} // while
-										
-						      	?>
-						      </select>
+                                                        <input type="date" class="form-control" id="editStartDate" placeholder="Rate" name="projectSD" autocomplete="off">
 						    </div>
 			        </div> <!-- /form-group-->	
 
 			        <div class="form-group">
-			        	<label for="editCategoryName" class="col-sm-3 control-label">Category Name: </label>
+			        	<label for="editCategoryName" class="col-sm-3 control-label">Project End Date: </label>
 			        	<label class="col-sm-1 control-label">: </label>
 						    <div class="col-sm-8">
-						      <select type="text" class="form-control" id="editCategoryName" name="editCategoryName" >
-						      	<option value="">~~SELECT~~</option>
-						      	<?php 
-						      	$sql = "SELECT categories_id, categories_name, categories_active, categories_status FROM categories WHERE categories_status = 1 AND categories_active = 1";
-										$result = $connect->query($sql);
-
-										while($row = $result->fetch_array()) {
-											echo "<option value='".$row[0]."'>".$row[1]."</option>";
-										} // while
-										
-						      	?>
-						      </select>
+						        <input type="date" class="form-control" id="editEndDate" placeholder="Rate" name="projectED" autocomplete="off">
 						    </div>
 			        </div> <!-- /form-group-->					        	         	       
 

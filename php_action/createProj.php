@@ -1,14 +1,19 @@
-<?php
-require_once 'db_connect.php';
+<?php 	
 
-echo 'Post hua kuch';
+require_once 'core.php';
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+$valid['success'] = array('success' => false, 'messages' => array());
 
+if($_POST) {	
+
+//	$productName 		= $_POST['productName'];
+//  // $productImage 	= $_POST['productImage'];
+//  $quantity 			= $_POST['quantity'];
+//  $rate 					= $_POST['rate'];
+//  $brandName 			= $_POST['brandName'];
+//  $categoryName 	= $_POST['categoryName'];
+//  $productStatus 	= $_POST['productStatus'];
+  
 $projectID=$_POST['projectID'];
 $projectName=$_POST['projectName'];
 $projectTeam=$_POST['projectTeam'];
@@ -16,19 +21,40 @@ $projectDuration=$_POST['projectDuration'];
 $projectSD=$_POST['projectSD'];
 $projectED=$_POST['projectED'];
 
-echo 'Data You Entered are...<br>';
-echo 'Project ID :'. $projectID.' <br>';
-echo 'Project Name :'. $projectName .'<br>';
-echo 'Project Team :'. $projectTeam.' <br>';
-echo 'Project Start Date :'. $projectSD .'<br>';
-echo 'Project End Date :'. $projectED .'<br>';
+	
+	 
+					
+	
+/**
+				
+    $sql = "INSERT INTO project (project_id, project_name, project_team, project_duration, project_start_date, project_end_date, status) 
+	VALUES ('$projectID', '$projectName', '$projectTeam', '$projectDuration', '$projectSD', '$projectED', 1)";
+	if($connect->query($sql) === TRUE) {
+		$valid['success'] = true;
+		$valid['messages'] = "Successfully Added";	
+	} else {
+		$valid['success'] = false;
+		$valid['messages'] = "Error while adding the members";
+	}
+
+					// /else	
+		 // if
+	 // if in_array 		
+**/
 
 $sql = "INSERT INTO project (project_id, project_name, project_team, project_duration, project_start_date, project_end_date) 
 				VALUES ('$projectID', '$projectName', '$projectTeam', '$projectDuration', '$projectSD', '$projectED')";
 
-if($connect->query($sql) === TRUE){
-    echo 'Database dekho Project add ho gaya';
-}
- else {
-    echo 'Kuch Galti kar diye';
-}
+if($connect->query($sql) === TRUE) 
+    {
+	$valid['success'] = true;
+	$valid['messages'] = "Successfully Added";	
+    } else {
+	$valid['success'] = false;
+        $valid['messages'] = "Error while adding the members";
+    }
+	$connect->close();
+
+	var_dump( json_encode($valid));
+ 
+} // /if $_POST
