@@ -2,18 +2,40 @@
 
 <?php 
 
-$sql = "SELECT * FROM product WHERE status = 1";
-$query = $connect->query($sql);
-$countProduct = $query->num_rows;
+//$sql = "SELECT * FROM product WHERE status = 1";
+//$query = $connect->query($sql);
+//$countProduct = $query->num_rows;
+
+$projectsql = "SELECT * FROM project";
+$projectquery = $connect->query($projectsql);
+$cntProject = $projectquery->num_rows;
+
+$systemsql = "SELECT * FROM system";
+$systemquery = $connect->query($systemsql);
+$countSystem = $systemquery->num_rows;
+
+
+$usersql = "SELECT * FROM users";
+$userquery = $connect->query($usersql);
+$countUser = $userquery->num_rows;
 
 $orderSql = "SELECT * FROM orders WHERE order_status = 1";
 $orderQuery = $connect->query($orderSql);
 $countOrder = $orderQuery->num_rows;
 
+$seesionsql="select * from sessions where user_status='online'";
+$sessionquery=$connect->query($seesionsql);
+$sessionresult = $sessionquery->fetch_assoc();
+
 $totalRevenue = "";
 while ($orderResult = $orderQuery->fetch_assoc()) {
 	$totalRevenue += $orderResult['paid'];
 }
+
+
+//while ($sessionresult = $sessionquery->fetch_assoc()) {
+//	$totalUser += intval($sessionresult['user_name']);
+//}
 
 $lowStockSql = "SELECT * FROM product WHERE quantity <= 3 AND status = 1";
 $lowStockQuery = $connect->query($lowStockSql);
@@ -40,14 +62,14 @@ $connect->close();
 
 
 <div class="row">
-	<?php  if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
+	<?php  if(isset($_SESSION['userId']) && $_SESSION['userLabel']==1) { ?>
 	<div class="col-md-4">
 		<div class="panel panel-success">
 			<div class="panel-heading">
 				
-				<a href="product.php" style="text-decoration:none;color:black;">
-					Total Product
-					<span class="badge pull pull-right"><?php echo $countProduct; ?></span>	
+				<a href="project.php" style="text-decoration:none;color:black;">
+					Total Project
+					<span class="badge pull pull-right"><?php echo $cntProject; ?></span>	
 				</a>
 				
 			</div> <!--/panel-hdeaing-->
@@ -57,9 +79,9 @@ $connect->close();
 	<div class="col-md-4">
 		<div class="panel panel-danger">
 			<div class="panel-heading">
-				<a href="product.php" style="text-decoration:none;color:black;">
-					Low Stock
-					<span class="badge pull pull-right"><?php echo $countLowStock; ?></span>	
+				<a href="system.php" style="text-decoration:none;color:black;">
+					Systems
+					<span class="badge pull pull-right"><?php echo $countSystem; ?></span>	
 				</a>
 				
 			</div> <!--/panel-hdeaing-->
@@ -67,19 +89,19 @@ $connect->close();
 	</div> <!--/col-md-4-->
 	
 	
-	<?php } ?>  
+	 
 		<div class="col-md-4">
 			<div class="panel panel-info">
 			<div class="panel-heading">
-				<a href="orders.php?o=manord" style="text-decoration:none;color:black;">
-					Total Orders
-					<span class="badge pull pull-right"><?php echo $countOrder; ?></span>
+                            <a href="user.php" style="text-decoration:none;color:black;">
+					Users
+					<span class="badge pull pull-right"><?php echo $countUser; ?></span>
 				</a>
 					
 			</div> <!--/panel-hdeaing-->
 		</div> <!--/panel-->
 		</div> <!--/col-md-4-->
-
+<?php } ?> 
 	
 
 	<div class="col-md-4">
@@ -93,40 +115,58 @@ $connect->close();
 		  </div>
 		</div> 
 		<br/>
-
+<?php  if(isset($_SESSION['userId']) && $_SESSION['userLabel']==1) { ?>
 		<div class="card">
 		  <div class="cardHeader" style="background-color:#245580;">
-		    <h1><?php if($totalRevenue) {
-		    	echo $totalRevenue;
-		    	} else {
-		    		echo '0';
-		    		} ?></h1>
+		    <h1>
+		    	Welcome to Admin Panel
+                    </h1>
 		  </div>
 
 		  <div class="cardContainer">
-		    <p> INR Total Revenue</p>
+		    <p> System Monitoring Azcom</p>
 		  </div>
 		</div> 
 
-	</div>
+	</div> <?php } ?>
 	
-	<?php  if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
+                <?php  if(isset($_SESSION['userId']) && $_SESSION['userLabel']!=1) { ?>
+		<div class="card">
+		  <div class="cardHeader" style="background-color:#245580;">
+		    <h1>
+		    	Welcome User
+                    </h1>
+		  </div>
+
+		  <div class="cardContainer">
+                      <p> Your Session Started</p>
+		    <p> System Monitoring Azcom</p>
+		  </div>
+		</div> 
+
+	</div> <?php } ?>
+                
+                
+                
+	<?php  if(isset($_SESSION['userId']) && $_SESSION['userLabel']==1) { ?>
 	<div class="col-md-8">
 		<div class="panel panel-default">
-			<div class="panel-heading"> <i class="glyphicon glyphicon-calendar"></i> User Wise Order</div>
+			<div class="panel-heading"> <i class="glyphicon glyphicon-calendar"></i> List of Online Users</div>
 			<div class="panel-body">
 				<table class="table" id="productTable">
 			  	<thead>
 			  		<tr>			  			
-			  			<th style="width:40%;">Name</th>
-			  			<th style="width:20%;">Orders in Rupees</th>
+			  			<th style="width:20%;">Name</th>
+                                                <th style="width:20%;">Status</th>
+			  			<th style="width:20%;">Project</th>
 			  		</tr>
 			  	</thead>
 			  	<tbody>
-					<?php while ($orderResult = $userwiseQuery->fetch_assoc()) { ?>
+					<?php while ($sessionresult = $sessionquery->fetch_assoc()) { ?>
 						<tr>
-							<td><?php echo $orderResult['username']?></td>
-							<td><?php echo $orderResult['totalorder']?></td>
+							<td><?php echo $sessionresult['user_name']?></td>
+							<td><?php echo $sessionresult['user_status']?></td>
+                                                        <td><?php echo $sessionresult['project_name']?></td>
 							
 						</tr>
 						

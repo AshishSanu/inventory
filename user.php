@@ -24,8 +24,13 @@
 				<table class="table" id="manageUserTable">
 					<thead>
 						<tr>
+                                                        <th style="width:10%;">User ID</th>
 							<th style="width:10%;">User Name</th>
-							<th style="width:15%;">Options</th>
+                                                        <th style="width:10%;">Project</th>
+                                                        <th style="width:10%;">Status</th>
+                                                        <th style="width:10%;">Email</th>
+							<th style="width:10%;">User Label</th>
+                                                        <th style="width:15%;"> Option </th>
 						</tr>
 					</thead>
 				</table>
@@ -52,7 +57,13 @@
 
 	      	<div id="add-user-messages"></div>
 
-	      		     	           	       
+	      	<div class="form-group">
+	        	<label for="userName" class="col-sm-3 control-label">User ID: </label>
+	        	
+				    <div class="col-sm-8">
+				      <input type="text" class="form-control" id="userId" placeholder="User ID" name="userId" autocomplete="off">
+				    </div>
+	        </div> <!-- /form-group-->     	           	       
 
 	        <div class="form-group">
 	        	<label for="userName" class="col-sm-3 control-label">User Name: </label>
@@ -68,15 +79,47 @@
 				    <div class="col-sm-8">
 				      <input type="password" class="form-control" id="upassword" placeholder="Password" name="upassword" autocomplete="off">
 				    </div>
-	        </div> <!-- /form-group-->	        	 
-
+	        </div> <!-- /form-group-->
+                
+                <div class="form-group">
+	        	<label for="upassword" class="col-sm-3 control-label">Project: </label>
+	        	
+				    <div class="col-sm-8">
+				      <input type="text" class="form-control" id="project" placeholder="Project" name="project" autocomplete="off">
+				    </div>
+	        </div> <!-- /form-group-->
+                
+                <div class="form-group">
+	        	<label for="upassword" class="col-sm-3 control-label">Status: </label>
+	        	
+				    <div class="col-sm-8">
+				      <input type="text" class="form-control" id="status" placeholder="Status" name="status" autocomplete="off">
+				    </div>
+	        </div> <!-- /form-group-->
+                
+                
 	        <div class="form-group">
 	        	<label for="uemail" class="col-sm-3 control-label">Email: </label>
 	        	
 				    <div class="col-sm-8">
 				      <input type="email" class="form-control" id="uemail" placeholder="Email" name="uemail" autocomplete="off">
 				    </div>
-	        </div> <!-- /form-group-->	 
+	        </div> <!-- /form-group-->
+                
+                 <div class="form-group">
+	        	<label for="brandName" class="col-sm-3 control-label">User Label: </label>
+	        	
+				    <div class="col-sm-8">
+				      <select class="form-control" id="userLabel" name="userLabel">
+				      	<option value="">~~SELECT~~</option>
+                                        
+                                        <option value="1"><b>Admin</b></option>
+                                      <option value="2"><b>General User</b></option>
+                                        
+				      	
+				      </select>
+				    </div>
+	        </div> <!-- /form-group-->
 	        	         	        
 	      </div> <!-- /modal-body -->
 	      

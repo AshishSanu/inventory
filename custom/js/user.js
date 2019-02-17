@@ -115,7 +115,9 @@ $(document).ready(function() {
 
 						} // /if response.success
 						
-					} // /success function
+					}
+                                        
+                            // /success function
 				}); // /ajax function
 			}	 // /if validation is ok 					
 

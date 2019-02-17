@@ -2,7 +2,7 @@ var manageProductTable;
 
 $(document).ready(function() {
 	// top nav bar 
-	$('#navProduct').addClass('active');
+	$('#navProject').addClass('active');
 	// manage product data table
 	manageProductTable = $('#manageProductTable').DataTable({
 		'ajax': 'php_action/fetchProject.php',

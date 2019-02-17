@@ -31,15 +31,33 @@ if($_POST) {
 			// exists
 			$mainSql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
 			$mainResult = $connect->query($mainSql);
+                        
 
 			if($mainResult->num_rows == 1) {
 				$value = $mainResult->fetch_assoc();
 				$user_id = $value['user_id'];
+                                $user_label=$value['user_label'];
 
 				// set session
 				$_SESSION['userId'] = $user_id;
-
-				header('location: http://localhost:8085/inventory/dashboard.php');	
+                                $_SESSION['userLabel']=$user_label;
+                                $_SESSION['userName']=$username;
+                                $sessionId=session_id() . time();
+                                $_SESSION['sessionId']=$sessionId;
+                                $projectName=$value['project'];
+                                $userName=$value['username'];
+                                //date_default_timezone_set('IST');
+                                $sessionSql="insert into sessions (session_id,user_name,user_status,project_name, session_start_time) VALUES ('$sessionId','$userName','online','$projectName', '" . date('Y-m-d H:i:s', time()+16200) . "')";
+                           
+                                if($connect->query($sessionSql)){
+                          
+                                    header('location: http://localhost:8085/inventory/dashboard.php');	
+                                }
+                                else {
+                                   // console.log("some error");
+                                    $errors[] = "Session is failed to upload" . $sessionSql;	
+                                }
+				
 			} else{
 				
 				$errors[] = "Incorrect username/password combination";

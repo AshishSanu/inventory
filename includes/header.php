@@ -4,7 +4,7 @@
 <html>
 <head>
 
-	<title>Stock Management System</title>
+	<title>Azcom System Monitoring System</title>
 
 	<!-- bootstrap -->
 	<link rel="stylesheet" href="assests/bootstrap/css/bootstrap.min.css">
@@ -57,31 +57,31 @@
       <ul class="nav navbar-nav navbar-right">        
 
       	<li id="navDashboard"><a href="index.php"><i class="glyphicon glyphicon-list-alt"></i>  Dashboard</a></li>        
-        <?php if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
-        <li id="navBrand"><a href="createProject.php"><i class="glyphicon glyphicon-btc"></i>  Create Project</a></li>        
+        <?php if(isset($_SESSION['userId']) && $_SESSION['userLabel']==1) { ?>
+        <li id="navProject"><a href="project.php"><i class="glyphicon glyphicon-btc"></i>  Project</a></li>        
 		<?php } ?>
-		<?php if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
-        <li id="navCategories"><a href="categories.php"> <i class="glyphicon glyphicon-th-list"></i> Category</a></li>        
+		<?php if(isset($_SESSION['userId']) && $_SESSION['userLabel']==1) { ?>
+        <li id="navSystem"><a href="system.php"> <i class="glyphicon glyphicon-th-list"></i> System</a></li>        
 		<?php } ?>
-		<?php if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
-        <li id="navProduct"><a href="product.php"> <i class="glyphicon glyphicon-ruble"></i> Product </a></li> 
+		<?php if(isset($_SESSION['userId']) && $_SESSION['userLabel']==1) { ?>
+        <li id="navUser"><a href="user.php"> <i class="glyphicon glyphicon-ruble"></i> User </a></li> 
 		<?php } ?>
 		
-        <li class="dropdown" id="navOrder">
+<!--        <li class="dropdown" id="navOrder">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-shopping-cart"></i> Orders <span class="caret"></span></a>
           <ul class="dropdown-menu">            
             <li id="topNavAddOrder"><a href="orders.php?o=add"> <i class="glyphicon glyphicon-plus"></i> Add Orders</a></li>            
             <li id="topNavManageOrder"><a href="orders.php?o=manord"> <i class="glyphicon glyphicon-edit"></i> Manage Orders</a></li>            
           </ul>
-        </li> 
+        </li> -->
 		
-		<?php  if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
+		<?php  if(isset($_SESSION['userId']) && $_SESSION['userLabel']==1) { ?>
         <li id="navReport"><a href="report.php"> <i class="glyphicon glyphicon-check"></i> Report </a></li>
 		<?php } ?>   
         <li class="dropdown" id="navSetting">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-user"></i> <span class="caret"></span></a>
           <ul class="dropdown-menu">    
-			<?php if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
+			<?php if(isset($_SESSION['userId']) && $_SESSION['userLabel']==1) { ?>
             <li id="topNavSetting"><a href="setting.php"> <i class="glyphicon glyphicon-wrench"></i> Setting</a></li>
             <li id="topNavUser"><a href="user.php"> <i class="glyphicon glyphicon-wrench"></i> Add User</a></li>
 <?php } ?>              

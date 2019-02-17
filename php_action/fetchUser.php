@@ -18,6 +18,14 @@ if($result->num_rows > 0) {
  	$userid = $row[0];
  	// active 
  	$username = $row[1];
+        
+        $project = $row[3];
+        
+        $status = $row[4];
+        
+        $email = $row[5];
+        
+        $user_label = $row[6];
 
  	$button = '<!-- Single button -->
 	<div class="btn-group">
@@ -32,9 +40,19 @@ if($result->num_rows > 0) {
 
 	
 
- 	$output['data'][] = array( 		
+ 	$output['data'][] = array( 
+                //userid
+                $userid,
  		// name
  		$username,
+                //project
+                $project,
+                //status
+                $status,
+                //email
+                $email,
+                //user_label
+                $user_label,
  		// button
  		$button 		
  		); 	
